@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/bootstrap.min.css}">
+    <title>Page Title</title>
+</head>
+<body class="container mt-5 mb-5">
+<div class="row">
+    <div class="col-md-6">
+        <form th:object="${chatForm}" th:action="@{'/chat'}" method="POST" action="#">
+            <div class="d-flex align-items-center">
+                <div class="mr-2">
+                    <label for="messageText">Message Text:</label>
+                    <input class="form-control" th:field="*{messageText}" id="messageText" type="text">
+                </div>
+                <div class="mr-2">
+                    <label for="messageType">Message Type: </label>
+                    <select class="form-control" id="messageType" th:field="*{messageType}">
+                        <option
+                                th:each="type: ${allMessageTypes}"
+                                th:value="${type}"
+                                th:text="${type}"
+                        >
+                            Say
+                        </option>
+                    </select>
+                </div>
+                <div class="align-self-end mr-2">
+                    <button id="submitButton" type="submit" class="btn btn-success">Send</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <form action="#" method="POST" th:action="@{/logout}">
+            <button id="logoutButton" type="submit" class="btn btn-secondary float-right">Logout</button>
+        </form>
+    </div>
+</div>
+<div>
+    <div class="mt-3 mb-3" th:each="chatMessage: ${chatMessages}">
+        <div class="d-flex align-items-center">
+            <div class="alert alert-success mb-0 chatMessageUsername" th:text="${chatMessage.username}">Username</div>
+            <div class="">&nbsp;:&nbsp;</div>
+            <div class="alert alert-secondary mb-0 chatMessageText" th:text="${chatMessage.message}">Hello,World!</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
